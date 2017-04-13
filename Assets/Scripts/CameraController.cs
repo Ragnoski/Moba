@@ -19,19 +19,23 @@ public class CameraController : MonoBehaviour {
 	}
 
 	private void Update () {
-		if (Input.mousePosition.x > _screenwidth - boundary) {
+		if (Input.mousePosition.x > _screenwidth - boundary)
+        {
 			transform.Translate(Vector3.right * speed * Time.deltaTime, relativeTransform);
 		}
 
-		if (Input.mousePosition.x < 0 + boundary) {
+		if (Input.mousePosition.x < 0 + boundary)
+        {
 			transform.Translate(-Vector3.right * speed * Time.deltaTime, relativeTransform);
 		}
 
-		if (Input.mousePosition.y > _screenheight + boundary) {
+		if (Input.mousePosition.y > _screenheight + boundary)
+        {
 			transform.Translate(Vector3.forward * speed * Time.deltaTime, relativeTransform);
 		}
 
-		if (Input.mousePosition.y < 0 + boundary) {
+		if (Input.mousePosition.y < 0 + boundary)
+        {
 			transform.Translate(-Vector3.forward * speed * Time.deltaTime, relativeTransform);
 		}
 	}

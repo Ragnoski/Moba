@@ -1,26 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     public string Name;
     public PlayerStats Stats;
     public Aptittude Aptittude;
+    public Text StatusText;
 
 
     private int _level;
     private int _experience;
     private int _nextLevelExp;
-    private StatusController _statuscontroller;
     private SkillsManager _skillsmanager;
+    private Clicktomove _clicktomove;
     private Power _power;
+
+    private bool _paralyzed;
+    private bool _bleeding;
+    private bool _sleeping;
+    private bool _idle;
+    private float _lifetime;
+    private float _damage;
+    private Player _hitby;
 
 
     private void Awake()
     {
-        _statuscontroller = GetComponent<StatusController>();
         _skillsmanager = GetComponent<SkillsManager>();
+        _clicktomove = GetComponent<Clicktomove>();
         _power = GetComponent<Power>();
     }
 
@@ -30,8 +40,84 @@ public class Player : MonoBehaviour
         _experience = 0;
         _nextLevelExp = 50;
 
+        StatusText.text = "";
+
         Stats.Initialize();
     }
+
+    private void EnableAllControls(bool value)
+    {
+        _skillsmanager.EnableAll(value);
+
+        if (_clicktomove)
+            _clicktomove.Enable(value);
+    }
+
+    private IEnumerator ParalyzeCounter()
+    {
+        _paralyzed = true;
+        StatusText.text = "Paralyzed";
+        EnableAllControls(false);
+
+        yield return new WaitForSeconds(_lifetime);
+
+        _paralyzed = false;
+        StatusText.text = string.Empty;
+        EnableAllControls(true);
+    }
+
+    private IEnumerator BleedCounter()
+    {
+        _bleeding = true;
+        StatusText.text = "Bleeding";
+
+        int time = (int)(_lifetime * 10) + 9;
+        float amount = 1 * _damage / _lifetime;
+
+        for (int i = time; i > 0; i--)
+        {
+            yield return new WaitForSeconds(0.1f);
+            TakeDamage(SCTStats.Damage, amount, _hitby);
+        }
+
+        _bleeding = false;
+        StatusText.text = string.Empty;
+    }
+
+    private IEnumerator SleepCounter()
+    {
+        _sleeping = true;
+        StatusText.text = "Sleeping";
+        EnableAllControls(false);
+
+        yield return new WaitForSeconds(_lifetime);
+
+        if (_sleeping == true)
+        {
+            _sleeping = false;
+            StatusText.text = string.Empty;
+            EnableAllControls(true);
+        }
+    }
+
+    private void WakeUp()
+    {
+        if (_sleeping)
+        {
+            StopCoroutine("SleepCounter");
+
+            _sleeping = false;
+            StatusText.text = string.Empty;
+            EnableAllControls(true);
+        }
+    }
+
+    private void OnDeath()
+    {
+        StopAllCoroutines();
+        gameObject.SetActive(false);
+    }
+
 
     public void LevelUp()
     {
@@ -46,13 +132,6 @@ public class Player : MonoBehaviour
         Debug.Log(_level);
     }
 
-    private void OnDeath()
-    {
-        StopAllCoroutines();
-        gameObject.SetActive(false);
-    }
-
-
     public void AddExperience(int newvalue)
     {
         _experience += newvalue;
@@ -62,39 +141,49 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Paralyze(float time)
+    // can't move or attack until time does not end
+    public void Paralyze(float lifetime)
     {
         if (!gameObject.activeSelf)
             return;
 
-        _statuscontroller.Paralyze(time);
+        _lifetime = lifetime;
+        StartCoroutine(ParalyzeCounter());
     }
 
+    // lose life during lifetime
     public void Bleed(float lifetime, float bleedamount, Player hitby)
     {
         if (!gameObject.activeSelf)
             return;
 
-        _statuscontroller.Bleed(lifetime, bleedamount, hitby);
+        _lifetime = lifetime;
+        _damage = bleedamount;
+        _hitby = hitby;
+        StartCoroutine(BleedCounter());
     }
 
-    public void Sleep(float time)
+    // can't move or attack until hit by either enemy attack or skill
+    public void Sleep(float lifetime)
     {
         if (!gameObject.activeSelf)
             return;
 
-        _statuscontroller.Sleep(time);
+        _lifetime = lifetime;
+        StartCoroutine(SleepCounter());
     }
 
+    // can't move attack or use skills until idle is true
     public void Idle(bool value)
     {
         if (!gameObject.activeSelf)
             return;
 
-        _statuscontroller.Idle(value);
+        _idle = value;
+        EnableAllControls(!value);
     }
 
-    public void TakeDamage(Stats type, float amount, Player hitBy)
+    public void TakeDamage(SCTStats type, float amount, Player hitBy)
     {
 		if (type.STR) {
 			Stats.Defend (amount);
@@ -108,7 +197,7 @@ public class Player : MonoBehaviour
 			throw new System.Exception("Damage type is invalid or null.");
 		}
 
-        _statuscontroller.WakeUp();
+        WakeUp();
 
         if(Stats.Life <= 0f)
         {

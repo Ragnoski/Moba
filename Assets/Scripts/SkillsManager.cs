@@ -36,6 +36,15 @@ public class SkillsManager : MonoBehaviour
     }
 
 
+
+    public void EnableAll(bool value = true)
+    {
+        foreach (SkillController scontrol in _skillcontrollers)
+        {
+            scontrol.enabled = value;
+        }
+    }
+
     public void EnableSkillsUpgrade(int level)
     {
         _upgradesleft += 1;

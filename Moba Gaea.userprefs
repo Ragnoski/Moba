@@ -1,15 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CameraController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Clicktomove.cs">
     <Files>
       <File FileName="Assets\Scripts\GameController.cs" Line="16" Column="48" />
       <File FileName="Assets\Scripts\Player.cs" Line="102" Column="26" />
+      <File FileName="Assets\Scripts\StatusController.cs" Line="11" Column="21" />
       <File FileName="Assets\Scripts\SkillController\PushItController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SkillController\FuryController.cs" Line="4" Column="14" />
+      <File FileName="Assets\Scripts\SkillController\FuryController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SkillController\ForceController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SkillController\DeepSleepController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Clicktomove.cs" Line="28" Column="40" />
-      <File FileName="Assets\Scripts\CameraController.cs" Line="16" Column="25" />
+      <File FileName="Assets\Scripts\SkillController\SkillController.cs" Line="100" Column="20" />
+      <File FileName="Assets\Scripts\Clicktomove.cs" Line="22" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
