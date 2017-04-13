@@ -21,11 +21,12 @@ public class Clicktomove : MonoBehaviour {
 
 	private void Update () {
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-		RaycastHit hit;
+        Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow);
+        RaycastHit hit;
 
 		if (Input.GetButtonDown("Fire2")) 
 		{
-			if (Physics.Raycast(ray, out hit, 50)) 
+			if (Physics.Raycast(ray, out hit, 100)) 
 			{
 				if (hit.collider.CompareTag("Enemy")) 
 				{
