@@ -93,7 +93,6 @@
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Language.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Power.cs" />
     <Compile Include="Assets\Scripts\PowerForce.cs" />
     <Compile Include="Assets\Scripts\SkillController\DeepSleepController.cs" />
@@ -108,7 +107,6 @@
     <Compile Include="Assets\Scripts\SkillController\SkillController.cs" />
     <Compile Include="Assets\Scripts\SkillsManager.cs" />
     <Compile Include="Assets\Scripts\Stats.cs" />
-    <Compile Include="Assets\Scripts\StatusController.cs" />
     <Compile Include="Assets\Scripts\UISliderController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

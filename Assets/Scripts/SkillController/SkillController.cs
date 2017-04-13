@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class DamageSettings
 {
     public float Value;
-    public Stats Type;
+    public SCTStats Type;
 }
 
 [System.Serializable]

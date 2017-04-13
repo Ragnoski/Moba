@@ -4,48 +4,48 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public struct Stats
+public struct SCTStats
 {
     public bool STR;
     public bool INT;
     public bool HIT;
     public bool DAM;
 
-    static public Stats Strength
+    static public SCTStats Strength
     {
         get
         {
-            Stats temp = new Stats();
+            SCTStats temp = new SCTStats();
             temp.STR = true;
             return temp;
         }
     }
 
-    static public Stats Inteligence
+    static public SCTStats Inteligence
     {
         get
         {
-            Stats temp = new Stats();
+            SCTStats temp = new SCTStats();
             temp.INT = true;
             return temp;
         }
     }
 
-    static public Stats Hit
+    static public SCTStats Hit
     {
         get
         {
-            Stats temp = new Stats();
+            SCTStats temp = new SCTStats();
             temp.HIT = true;
             return temp;
         }
     }
 
-    static public Stats Damage
+    static public SCTStats Damage
     {
         get
         {
-            Stats temp = new Stats();
+            SCTStats temp = new SCTStats();
             temp.DAM = true;
             return temp;
         }

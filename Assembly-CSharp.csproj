@@ -52,7 +52,6 @@
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\Language.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Power.cs" />
      <Compile Include="Assets\Scripts\PowerForce.cs" />
      <Compile Include="Assets\Scripts\SkillController\DeepSleepController.cs" />
