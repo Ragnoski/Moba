@@ -1,16 +1,16 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Clicktomove.cs">
+﻿<Properties StartupItem="Moba Gaea.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Billboard.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameController.cs" Line="16" Column="48" />
-      <File FileName="Assets\Scripts\Player.cs" Line="102" Column="26" />
-      <File FileName="Assets\Scripts\StatusController.cs" Line="11" Column="21" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SkillController\PushItController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SkillController\FuryController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SkillController\ForceController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SkillController\DeepSleepController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SkillController\SkillController.cs" Line="100" Column="20" />
-      <File FileName="Assets\Scripts\Clicktomove.cs" Line="22" Column="21" />
+      <File FileName="Assets\Scripts\SkillController\SkillController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Clicktomove.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Billboard.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

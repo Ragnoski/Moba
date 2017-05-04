@@ -49,6 +49,6 @@ public class FuryController : SkillController
     public override void Damage(Player target)
     {
         target.TakeDamage(base.Settings.Damage.Type, GetDamage(), base.Owner);
-        target.Bleed(base.Settings.Paralyze.Time, GetBleedingDamage(), base.Owner);
+        target.Bleed(base.Settings.Bleed.Time, GetBleedingDamage(), base.Owner);
     }
 }

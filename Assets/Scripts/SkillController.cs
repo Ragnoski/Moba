@@ -50,7 +50,6 @@ public class SkillController : MonoBehaviour
     private const int _maxupgrade = 3;
 
     private int _settingsindex;
-    private bool _previewmode;
     private bool _controlButton;
     private bool _canupgrade;
     private Power _power;
@@ -100,7 +99,6 @@ public class SkillController : MonoBehaviour
     private void Play()
     {
         GameObject prefab = Instantiate(SkillPrefab, SpawnPoint.position, SpawnPoint.rotation, gameObject.transform);
-
         PlayerSkill playerskill = prefab.GetComponent<PlayerSkill>();
         playerskill.Controller = this;
 
@@ -113,11 +111,6 @@ public class SkillController : MonoBehaviour
         {
             Destroy(prefab);
         }
-    }
-
-    private void Preview()
-    {
-        _previewmode = true;
     }
 
     private void Update()
@@ -139,11 +132,13 @@ public class SkillController : MonoBehaviour
             }
             else if(!_controlButton)
             {
-                Preview();
+                //SkillArea.GetComponent<MeshRenderer>().enabled = true;
             }
         }
         else if (Input.GetButtonUp(FireButton))
         {
+            //SkillArea.GetComponent<MeshRenderer>().enabled = false;
+
             if (!_controlButton && CanFire())
             {
                 Play();
