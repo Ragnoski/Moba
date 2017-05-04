@@ -5,34 +5,36 @@ using UnityEngine.AI;
 
 public class Clicktomove : MonoBehaviour {
 
-    [HideInInspector] bool CanMove;
-    [HideInInspector] bool StartMove;
-
-	private NavMeshAgent _navmeshagent;
 	private bool _walking;
 	private bool _enemyclicked;
 	private Transform _targetenemy;
+    private Vector3 _destination;
+    private bool _canmove;
 
 
-	private void Awake() {
-		_navmeshagent = GetComponent<NavMeshAgent> ();
+    private void Awake() {
 	}
 
 	private void Start() {
-        CanMove = true;
+        _canmove = true;
 	}
 
 	private void Update() {
-		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow);
         RaycastHit hit;
 
-        if (CanMove)
+        if (_canmove)
         {
             if (Input.GetButtonDown("Fire2"))
             {
                 if (Physics.Raycast(ray, out hit, 100))
                 {
+                    if (hit.collider.CompareTag("Player"))
+                    {
+                        return;
+                    }
+
                     if (hit.collider.CompareTag("Enemy"))
                     {
                         _targetenemy = hit.transform;
@@ -40,46 +42,52 @@ public class Clicktomove : MonoBehaviour {
                     }
                     else
                     {
-                        _walking = true;
                         _enemyclicked = false;
-                        _navmeshagent.destination = hit.point;
+                        _destination = hit.point;
+
+                        this.transform.LookAt(new Vector3(_destination.x, this.transform.position.y, _destination.z));
                     }
 
-                    StartMove = true;
+                    _walking = true;
                 }
-            }
-
-            if (StartMove)
-            {
-                _navmeshagent.Resume();
             }
         }
 	}
 
-
-    public bool ReachedDestination()
+    private void FixedUpdate()
     {
-        if(!_navmeshagent.pathPending)
+        if (_walking)
         {
-            if( _navmeshagent.remainingDistance <= _navmeshagent.stoppingDistance)
+            this.transform.position += this.transform.forward * 2f * Time.deltaTime;
+            if (Vector3.Distance(this.transform.position, _destination) <= 0.1f)
             {
-                if(!_navmeshagent.hasPath || _navmeshagent.velocity.sqrMagnitude == 0f)
-                {
-                    return true;
-                }
+                _walking = false;
             }
         }
-
-        return false;
     }
 
-    public void Enable(bool value) {
-        CanMove = value;
 
-        if (!value)
-        {
-            _navmeshagent.Stop();
-            _navmeshagent.destination = Vector3.zero;
-        }
+    //public bool ReachedDestination()
+    //{
+    //    if(!_navmeshagent.pathPending)
+    //    {
+    //        if( _navmeshagent.remainingDistance <= _navmeshagent.stoppingDistance)
+    //        {
+    //            if(!_navmeshagent.hasPath || _navmeshagent.velocity.sqrMagnitude == 0f)
+    //            {
+    //                return true;
+    //            }
+    //        }
+    //    }
+
+    //    return false;
+    //}
+
+    public void Enable(bool value) {
+        _canmove = value;
+        _targetenemy = null;
+        _enemyclicked = false;
+        _destination = Vector3.zero;
+        _walking = false;
     }
 }

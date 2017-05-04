@@ -47,7 +47,8 @@ public class Player : MonoBehaviour
 
     private void EnableAllControls(bool value)
     {
-        _skillsmanager.EnableAll(value);
+        if (_skillsmanager)
+            _skillsmanager.EnableAll(value);
 
         if (_clicktomove)
             _clicktomove.Enable(value);
@@ -71,8 +72,8 @@ public class Player : MonoBehaviour
         _bleeding = true;
         StatusText.text = "Bleeding";
 
-        int time = (int)(_lifetime * 10) + 9;
-        float amount = 1 * _damage / _lifetime;
+        int time = (int)(_lifetime * 10);
+        float amount = 1 * _damage / time;
 
         for (int i = time; i > 0; i--)
         {
@@ -186,13 +187,13 @@ public class Player : MonoBehaviour
     public void TakeDamage(SCTStats type, float amount, Player hitBy)
     {
 		if (type.STR) {
-			Stats.Defend (amount);
+			Stats.Defend(amount);
 		} else if (type.INT) {
-			Stats.Resist (amount);
+			Stats.Resist(amount);
 		} else if (type.HIT) {
-			Stats.Escape (amount);
+			Stats.Escape(amount);
 		} else if (type.DAM) {
-			Stats.Damage (amount);
+			Stats.Damage(amount);
 		} else {
 			throw new System.Exception("Damage type is invalid or null.");
 		}
